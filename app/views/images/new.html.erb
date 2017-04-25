@@ -1,0 +1,38 @@
+<h2>Upload Image</h2>
+
+<%= form_for @image, :html => {:multipart => true} do |f| %>
+	<!-- check for errors -->
+	<% if@image.errors.any? %>
+		<% @image.errors.full_messages.each do |msg| %>
+			<!-- show errors -->
+			<div class="alert alert-denger"><%= msg %></div>
+		<% end %>
+	<% end %>	
+
+	<div class="form_group">
+		<%= f.label	 :image_title %>
+		<%= f.text_field :image_title, class:'form-control' %>
+	</div>
+
+	<div class="form_group">
+		<%= f.label	 :category %>
+		<%= f.select :category_id, Category.all.collect {|x| [x.name, x.id]},{:include_blank => 'Select One'}, class:'form-control' %>
+	</div>
+	
+	<div class="form_group">
+		<%= f.label	 :image_description %>
+		<%= f.text_area :image_description, class:'form-control' %>
+	</div>
+
+	<div class="form_group">
+		<%= f.label	 :image %>
+		<%= f.file_field :image %>
+	</div>
+
+	
+	<br>
+
+
+	<%= f.submit "Submit", class:'btn btn-primery' %>
+	<%= link_to "Cancel", categories_path, class:'btn btn-default' %>
+	<% end %> 
